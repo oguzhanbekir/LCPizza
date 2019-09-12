@@ -1,0 +1,129 @@
+import React, { Fragment } from 'react'
+import { Text, View, StyleSheet, Image, TouchableHighlight, Dimensions } from 'react-native';
+
+import { httpClient } from '../HttpClient/HttpClient'
+import Swiper from 'react-native-swiper'
+import Carousel from 'react-native-snap-carousel';
+
+
+//const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+
+const horizontalMargin = 5;
+const slideWidth = 300;
+
+const sliderWidth = Dimensions.get('window').width;
+const itemWidth = slideWidth - horizontalMargin * 2;
+const itemHeight = 200;
+
+class MainPageForYou extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+          data: [],
+          currentIndex: 0,
+        }
+      }
+
+      changeIndex = (currentIndex) => {
+        this.setState({ currentIndex });
+        console.log(this.state.currentIndex)
+      }
+
+      getIndex(currenIndex) {
+        return arr.findIndex(obj => obj.currenIndex === currenIndex);
+      }
+
+      _renderItem ({item, index}) {
+        return (
+          <View style={{ width: itemWidth, height: itemHeight }} >
+              <Image style={styles.image} source={{uri: item.imageUrl}} />
+              
+          </View>
+      );}
+
+    componentDidMount(){
+        const dataMainPageCampaigns =[]
+        httpClient
+        .get('/web/Product/GetMainPageCampaigns')
+        .then(res => {
+            res.data.result.map((data)=>{
+              const value = data.price.price.toFixed(2);
+                 dataMainPageCampaigns.push({id:data.id, name:data.name, imageUrl:data.image, price:value})
+             });
+             this.setState({
+                data : dataMainPageCampaigns
+
+             })
+            });
+    }
+
+    render() {
+       
+        return (
+            <View style={styles.subTopContainer}>
+                <View style={styles.container}>
+                    <Text style={styles.textLeft}>Kampanyalar</Text>
+                    <Text style={styles.textRight}>TÜMÜNÜ GÖR</Text>
+                </View>
+                <View style={{flex:1}}>
+                    {this.state.data.length > 0 &&
+                    <Fragment>
+                        <Carousel
+                            ref={(carousel) => { this.carousel = carousel; }}
+                            onSnapToItem={(slideIndex) => { 
+                            this.setState({
+                                currentIndex : slideIndex
+                            })}}
+                            data={this.state.data}
+                            renderItem={this._renderItem}
+                            sliderWidth={sliderWidth}
+                            enableMomentum={true}
+                            itemWidth={itemWidth}
+                        />
+                        <Text style={{ paddingLeft:10, fontSize:16, fontWeight:"600" }}>{this.state.data[this.state.currentIndex].name}</Text>
+                        <Text style={{ paddingLeft:10, fontSize:14, fontWeight:"800", color:'dimgray' }}>{'₺'+this.state.data[this.state.currentIndex].price}</Text>
+                    </Fragment> 
+            }
+                </View>
+            </View>
+        )
+    }
+}
+
+const styles= StyleSheet.create({
+    container:{
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        padding:10
+    },
+    subTopContainer:{
+        flex:1,
+        marginTop:10,
+        backgroundColor:'#fff',
+        paddingVertical:10
+      },
+    textLeft:{
+        fontSize:18,
+        fontWeight:'600'
+    }, 
+    textRight:{
+        color:'orange',
+        fontWeight:'300',
+        fontSize:15
+    },
+    text: {
+        color: '#fff',
+        fontSize: 30,
+        fontWeight: 'bold'
+    },
+    image: {
+        flex: 1
+    },
+    slide: {
+        flex: 1,
+        justifyContent: 'center',
+  },
+});
+
+export default MainPageForYou;
