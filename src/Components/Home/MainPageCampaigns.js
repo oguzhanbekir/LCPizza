@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react'
-import { Text, View, StyleSheet, Image, TouchableHighlight, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 
-import { httpClient } from '../HttpClient/HttpClient'
-import Swiper from 'react-native-swiper'
+import { httpClient } from '../../HttpClient/HttpClient'
 import Carousel from 'react-native-snap-carousel';
+
+import { connect } from 'react-redux'
 
 
 //const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
@@ -52,7 +53,6 @@ class MainPageForYou extends React.Component {
              });
              this.setState({
                 data : dataMainPageCampaigns
-
              })
             });
     }
@@ -62,6 +62,7 @@ class MainPageForYou extends React.Component {
         return (
             <View style={styles.subTopContainer}>
                 <View style={styles.container}>
+                <TouchableOpacity onPress={()=> { this.props.degistir() }}><Text>asdasd</Text></TouchableOpacity>
                     <Text style={styles.textLeft}>Kampanyalar</Text>
                     <Text style={styles.textRight}>TÜMÜNÜ GÖR</Text>
                 </View>
@@ -126,4 +127,16 @@ const styles= StyleSheet.create({
   },
 });
 
-export default MainPageForYou;
+const mapStateToProps = (state) => {
+    return {
+        durum: state.durum
+    }
+}
+
+const mapDispatchToprops = (dispatch) => {
+    return {
+        degistir:() => dispatch({type:'LOAD_HOMEE', payload:'false'})
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToprops)(MainPageForYou);

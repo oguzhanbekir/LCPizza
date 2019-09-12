@@ -6,16 +6,16 @@ import { AsyncStorage } from 'react-native';
 
 var isBasoluteURLRegex = /^(?:\w+:)\/\//;
 
+
 axios.interceptors.request.use(async (config)=>{
-    if(!isBasoluteURLRegex.test(config.url)){
-        const jwtToken = await AsyncStorage.getItem("token")
-        if(jwtToken!=null){
-          config.headers = {'Authorization': 'Bearer '+jwtToken,
-          'Content-Type': 'application/json'}
-        }
-        config.url = join('http://api.littlecaesars.uat.web.clckwrk.im/api',config.url);
+  if(!isBasoluteURLRegex.test(config.url)){
+    const AUTH_TOKEN = await AsyncStorage.getItem("token")
+    if(AUTH_TOKEN!=null){
+      config.headers = { 'Authorization': 'Bearer '+AUTH_TOKEN }
     }
-    return config;
+    config.url = join('http://api.littlecaesars.uat.web.clckwrk.im/api',config.url);
+}
+return config;
 }, function (error) {
     // Do something with request error
     return alert(error);

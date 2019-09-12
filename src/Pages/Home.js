@@ -1,24 +1,29 @@
 import React from 'react'
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 
-import { httpClient } from '../HttpClient/HttpClient'
-import Banner from '../Components/Banner'
-import MainPageForYou from '../Components/MainPageForYou'
-import MainPageCampaigns from '../Components/MainPageCampaigns'
+import Banner from '../Components/Home/Banner'
+import MainPageForYou from '../Components/Home/MainPageForYou'
+import MainPageCampaigns from '../Components/Home/MainPageCampaigns'
 
-class Home extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    
+import store from '../redux/store'
+import { Provider } from 'react-redux'
+
+const initialState ={
+  durum:'false'
+}
+
+
+class Home extends React.Component {  
     render() {
       
         return (
           <ScrollView>
             <View style={styles.container}>
+              <Provider store={store}>
                   <Banner />
                   <MainPageCampaigns />
                   <MainPageForYou />
+              </Provider>         
             </View>
           </ScrollView>
             

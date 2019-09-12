@@ -1,16 +1,17 @@
 import React from 'react'
-import { View, StyleSheet, ToastAndroid } from 'react-native';
+import { Text, View, StyleSheet, ToastAndroid, TouchableOpacity } from 'react-native';
 
-import { httpClient } from '../HttpClient/HttpClient'
+import { httpClient } from '../../HttpClient/HttpClient'
 import { SliderBox } from 'react-native-image-slider-box';
 
+import { connect } from 'react-redux'
 
-class Products extends React.Component {
+class Banner extends React.Component {
     state = { images: [] };
       componentDidMount(){
           //Uygulamanın ana sayfasındaki banner
         const imageUrl =[]
-        const promise = httpClient
+        httpClient
         .get('/web/Cms/Banner?Name=Promo')
         .then(res => {
             res.data.result.map((data)=>{
@@ -19,7 +20,6 @@ class Products extends React.Component {
              this.setState({
                 images: imageUrl
                  });
-                 ToastAndroid.show("as",ToastAndroid.LONG)
             }); 
 
     }
@@ -28,6 +28,8 @@ render() {
    
         return (
             <View style={styles.container}>
+                <TouchableOpacity onPress={()=> { this.props.degistir() }}><Text>asdasd</Text></TouchableOpacity>
+                <Text>{this.props.durum}</Text>
                 <SliderBox 
                     images={this.state.images}
                     sliderBoxHeight={350} />
@@ -42,4 +44,16 @@ const styles= StyleSheet.create({
     }
 });
 
-export default Products;
+const mapStateToProps = (state) => {
+    return {
+        durum: state.durum
+    }
+}
+
+const mapDispatchToprops = (dispatch) => {
+    return {
+        degistir:() => dispatch({type:'LOAD_HOME', payload:'false'})
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToprops)(Banner);

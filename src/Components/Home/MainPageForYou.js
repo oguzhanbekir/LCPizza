@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View, StyleSheet, Image,AsyncStorage,FlatList } from 'react-native';
 
-import { httpClient } from '../HttpClient/HttpClient'
+import { httpClient } from '../../HttpClient/HttpClient'
 import { Card } from "react-native-elements"
 
 
