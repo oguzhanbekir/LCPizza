@@ -7,7 +7,7 @@ import Main from './src/Navigation/AppNavigator'
 class App extends React.Component {
   constructor(props) {
       super(props);
-    // İlk token kontrolü token yok ise token üretilip localstorage a yazılır.
+    // İsdfsdflk token kontrolü token yok ise token üretilip localstorage a yazılır.
       const jwtToken = AsyncStorage.getItem("token")
         if(jwtToken==null){
             axios.post('https://auth.api.lcpizza.com.tr/api/auth/AuthService', {
