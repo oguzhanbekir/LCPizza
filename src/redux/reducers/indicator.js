@@ -1,11 +1,8 @@
-const indicator = (state=[],action)=>{
+const indicator = (state={durum:'false'},action)=>{
     switch(action.type){
         case 'LOAD_HOME':
-              return {...state, durum: 'dfh'};
-        case 'LOAD_HOMEE':
-                return {...state, durum: 'abc'};
-          //  return [{durum:'true'}]
-         
+              return {...state, durum:'true'};
+
     }
     return state
 }

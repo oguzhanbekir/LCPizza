@@ -4,8 +4,6 @@ import { Text, View, StyleSheet, ToastAndroid, TouchableOpacity } from 'react-na
 import { httpClient } from '../../HttpClient/HttpClient'
 import { SliderBox } from 'react-native-image-slider-box';
 
-import { connect } from 'react-redux'
-
 class Banner extends React.Component {
     state = { images: [] };
       componentDidMount(){
@@ -28,11 +26,11 @@ render() {
    
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={()=> { this.props.degistir() }}><Text>asdasd</Text></TouchableOpacity>
-                <Text>{this.props.durum}</Text>
+                {this.state.images.length > 0 &&
                 <SliderBox 
                     images={this.state.images}
                     sliderBoxHeight={350} />
+                }
             </View>
         )
     }
@@ -44,16 +42,6 @@ const styles= StyleSheet.create({
     }
 });
 
-const mapStateToProps = (state) => {
-    return {
-        durum: state.durum
-    }
-}
 
-const mapDispatchToprops = (dispatch) => {
-    return {
-        degistir:() => dispatch({type:'LOAD_HOME', payload:'false'})
-    }
-}
 
-export default connect(mapStateToProps,mapDispatchToprops)(Banner);
+export default Banner;

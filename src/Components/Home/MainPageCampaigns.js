@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 //const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 
 const horizontalMargin = 5;
-const slideWidth = 300;
+const slideWidth = 350;
 
 const sliderWidth = Dimensions.get('window').width;
 const itemWidth = slideWidth - horizontalMargin * 2;
@@ -62,7 +62,6 @@ class MainPageForYou extends React.Component {
         return (
             <View style={styles.subTopContainer}>
                 <View style={styles.container}>
-                <TouchableOpacity onPress={()=> { this.props.degistir() }}><Text>asdasd</Text></TouchableOpacity>
                     <Text style={styles.textLeft}>Kampanyalar</Text>
                     <Text style={styles.textRight}>TÜMÜNÜ GÖR</Text>
                 </View>

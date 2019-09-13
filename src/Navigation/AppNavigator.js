@@ -127,8 +127,6 @@ const MainApp = createBottomTabNavigator(
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, horizontal, tintColor }) => {
         const { routeName } = navigation.state;
-
-
         const items= {
           "Home" : "home",
           "Products" : "pie-chart",

@@ -1,34 +1,26 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native';
 
 import Banner from '../Components/Home/Banner'
 import MainPageForYou from '../Components/Home/MainPageForYou'
 import MainPageCampaigns from '../Components/Home/MainPageCampaigns'
+import Indicator from '../Components/Indicator'
 
-import store from '../redux/store'
-import { Provider } from 'react-redux'
+import { connect } from 'react-redux'
+import { copyAsync } from 'expo-file-system';
 
-const initialState ={
-  durum:'false'
-}
-
-
-class Home extends React.Component {  
-    render() {
-      
-        return (
-          <ScrollView>
-            <View style={styles.container}>
-              <Provider store={store}>
+class Home extends React.Component {
+          render(){
+            return (
+              <ScrollView>
+                <View style={styles.container}>
                   <Banner />
                   <MainPageCampaigns />
                   <MainPageForYou />
-              </Provider>         
-            </View>
-          </ScrollView>
-            
-        )
-    }
+                </View>
+              </ScrollView> 
+            )
+          }
 }
 
 const styles= StyleSheet.create({
@@ -38,4 +30,10 @@ const styles= StyleSheet.create({
   }
 });
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+      durum: state.durum
+  }
+}
+
+export default connect(mapStateToProps,null)(Home);

@@ -6,7 +6,6 @@ import { AsyncStorage } from 'react-native';
 
 var isBasoluteURLRegex = /^(?:\w+:)\/\//;
 
-
 axios.interceptors.request.use(async (config)=>{
   if(!isBasoluteURLRegex.test(config.url)){
     const AUTH_TOKEN = await AsyncStorage.getItem("token")
@@ -24,6 +23,14 @@ return config;
 // Add a response interceptor
 axios.interceptors.response.use(function (response) {
     // Do something with response data
+   // numberOfResponse.push(response)
+   /* Promise.all(numberOfResponse).then(function(data){
+      // Do something with the data here
+      return data;
+    }).then(function(data){
+      console.log(data)
+    });*/
+    
     return response;
   }, function (error) {
 
@@ -32,8 +39,9 @@ axios.interceptors.response.use(function (response) {
     } else {
 
     }
-    console.log(Promise.reject(error))
+    console.log(Promise.resolve(error))
     return Promise.reject(error);
-  });
+  })
+
 
 export const httpClient = axios;
