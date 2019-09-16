@@ -1,27 +1,23 @@
 import React from 'react'
 import { Text, View, StyleSheet, FlatList, SafeAreaView, Image } from 'react-native';
 
-import { httpClient } from '../../HttpClient/HttpClient'
-import { SliderBox } from 'react-native-image-slider-box';
-  
+import { httpClient } from '../../../HttpClient/HttpClient'  
 
-class ProductListView extends React.Component {
+class ByProducts extends React.Component {
 
     state = { data: [] };
 
-   
     componentDidMount(){
-          //Uygulamanın ana sayfasındaki banner
-        const imageUrl =[]
+          //TabView Kampanyalar
         httpClient
-        .get('/web/Product/GetProducts',{
+        .post('/web/Product/GetProducts',{
             CategoryId: "108860172578"
         })
         .then(res => {
              this.setState({
                 data: res.data.result
-                 });
-            }); 
+                });  
+        })
 
     }
 
@@ -35,7 +31,6 @@ class ProductListView extends React.Component {
 render() {
    
         return (
-
             <View style={styles.container}>
                <SafeAreaView style={styles.container}>
                {this.state.data.length > 0 &&
@@ -48,7 +43,7 @@ render() {
                                 style={{height: 70, width:120}}
                                 source={{uri: item.image}}
                             />
-                            <View style={{paddingLeft:10}}>
+                            <View style={{paddingLeft:10,width:230}}>
                                 <Text style={styles.titleName}>{item.name}</Text>
                                 <Text style={styles.titlePrice}>{'₺'+item.price.price}</Text>
                             </View>
@@ -90,4 +85,4 @@ const styles= StyleSheet.create({
     }
 });
 
-export default ProductListView;
+export default ByProducts;

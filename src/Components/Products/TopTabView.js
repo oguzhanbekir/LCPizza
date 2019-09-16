@@ -2,17 +2,19 @@ import * as React from 'react';
 import { View, StyleSheet, Dimensions, Fragment  } from 'react-native';
 import { TabView, SceneMap,TabBar } from 'react-native-tab-view';
 
-import ListView from './ProductListView'
+import TabViewCampaigns from './TabView/Campaigns'
+import TabViewPizzas from './TabView/Pizzas'
+import ByProducts from './TabView/ByProducts'
 
 const FirstRoute = () => (
-  <ListView />
+  <TabViewCampaigns />
 );
  
 const SecondRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
+  <TabViewPizzas />
 );
 const ThirdRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
+  <ByProducts />
 );
 
  class TopTabView extends React.Component {

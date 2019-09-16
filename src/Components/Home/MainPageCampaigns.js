@@ -63,7 +63,7 @@ class MainPageForYou extends React.Component {
             <View style={styles.subTopContainer}>
                 <View style={styles.container}>
                     <Text style={styles.textLeft}>Kampanyalar</Text>
-                    <Text style={styles.textRight}>TÜMÜNÜ GÖR</Text>
+                    <Text style={styles.textRight}  onPress={()=> this.props.navigation.navigate('Products')}>TÜMÜNÜ GÖR</Text>
                 </View>
                 <View style={{flex:1}}>
                     {this.state.data.length > 0 &&

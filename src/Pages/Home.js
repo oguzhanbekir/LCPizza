@@ -4,10 +4,11 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import Banner from '../Components/Home/Banner'
 import MainPageForYou from '../Components/Home/MainPageForYou'
 import MainPageCampaigns from '../Components/Home/MainPageCampaigns'
+import CouponCode from '../Components/Home/CouponCode'
+import NearestRestaurantButton from '../Components/Home/NearestRestaurant'
 import Indicator from '../Components/Indicator'
 
 import { connect } from 'react-redux'
-import { copyAsync } from 'expo-file-system';
 
 class Home extends React.Component {
           render(){
@@ -15,8 +16,10 @@ class Home extends React.Component {
               <ScrollView>
                 <View style={styles.container}>
                   <Banner />
-                  <MainPageCampaigns />
+                  <MainPageCampaigns navigation={this.props.navigation}/>
+                  <CouponCode />
                   <MainPageForYou />
+                  <NearestRestaurantButton navigation={this.props.navigation} />
                 </View>
               </ScrollView> 
             )

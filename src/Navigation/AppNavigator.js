@@ -4,12 +4,15 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Icon } from 'react-native-elements';
+import { fromRight } from 'react-navigation-transitions';
 
 import Home from '../Pages/Home'
 import Basket from '../Pages/Basket'
 import Products from '../Pages/Products'
 import PaymentType from '../Pages/PaymentType'
 import Settings from '../Pages/Settings'
+import Restaurants from '../Pages/Restaurants'
+
 
 const headerStyleHome = 'ANASAYFA'
 const headerStyleProducts = 'ÜRÜNLER'
@@ -17,20 +20,38 @@ const headerStyleBasket = 'SEPETİM'
 const headerStylePaymentType = 'TESLİMAT TİPİ'
 
 
-const HomeTab = createStackNavigator(
-  {
-    Home,
+const HomeTab = createStackNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions : ({ navigation }) => {
+      return {
+        headerTitle:headerStyleHome
+      }
+    }, 
   },
-  {
-    defaultNavigationOptions: {
-      headerStyle: {
-      
-      },
-      headerTintColor: '#000',
-      title: headerStyleHome,  
-    },
+  Restaurants: {
+    screen:Restaurants,
+    navigationOptions : ({ navigation }) => {
+      return {
+        headerTitle:"Restoranlar",
+      }
+    }, 
   }
-);
+}, {
+  initialRouteName: 'Home',
+  transitionConfig: () => fromRight(),
+});
+
+HomeTab.navigationOptions =({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+  return {
+    tabBarVisible,
+  };
+}
+
 
 const ProductsTab = createStackNavigator(
   {
@@ -94,9 +115,6 @@ const MainApp = createBottomTabNavigator(
   {
     Home: {
       screen: HomeTab,
-      navigationOptions : {
-        title:"ANASAYFA",
-      },
     },
     Products: {
       screen: ProductsTab,

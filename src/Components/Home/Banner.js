@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, ToastAndroid, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import { httpClient } from '../../HttpClient/HttpClient'
 import { SliderBox } from 'react-native-image-slider-box';
@@ -19,7 +19,6 @@ class Banner extends React.Component {
                 images: imageUrl
                  });
             }); 
-
     }
     
 render() {
@@ -41,7 +40,5 @@ const styles= StyleSheet.create({
         flex:1
     }
 });
-
-
 
 export default Banner;

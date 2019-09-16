@@ -41,6 +41,7 @@ class MainPageForYou extends React.Component {
                 {this.state.data.length > 0 &&
                 <FlatList
                     horizontal
+                    showsHorizontalScrollIndicator={false}
                     data={this.state.data}
                     renderItem={({ item: rowData }) => {
                     return (
